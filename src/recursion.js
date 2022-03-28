@@ -189,15 +189,10 @@ var multiply = function(x, y) {
   if (y === -1) {
     return -x;
   }
-  if (x < 0 && y < 0) {
-    y = y + 1;
-    return (-x) + multiply(x, y);
-  } else if (y < 0) {
-    y = y + 1;
-    return (-x) + multiply(x, y);
+  if (y < 0) {
+    return (-x) + multiply(x, y + 1);
   } else {
-    y = y - 1;
-    return x + multiply(x, y);
+    return x + multiply(x, y - 1);
   }
 };
 
