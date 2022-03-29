@@ -389,6 +389,17 @@ var replaceKeysInObj = function(obj, oldKey, newKey) {
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
 var fibonacci = function(n) {
+  if (n <= 0) {
+    return null;
+  }
+  if (n === 1) {
+    return [0, 1];
+  }
+  array = fibonacci(n - 1);
+  var lastValue = (array.slice(-1))[0];
+  var penultimateValue = (array.slice(-2))[0];
+  array.push(lastValue + penultimateValue);
+  return array;
 };
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
