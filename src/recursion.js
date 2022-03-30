@@ -568,6 +568,34 @@ var alternateSign = function(array) {
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+  if (str.length === 0) {
+    return '';
+  }
+  var numDictionary = {1: 'one', 2: 'two', 3: 'three', 4: 'four',
+  5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine'};
+
+  var numToTextStr = '';
+  var firstSpace = str.indexOf(' ');
+  var wordNumber;
+
+  if (firstSpace >= 0) {
+    wordNumber = parseInt(str.slice(0, firstSpace));
+    if (Number.isNaN(wordNumber)) {
+      var word = str.slice(0, firstSpace + 1)
+      numToTextStr += word;
+    } else {
+      numToTextStr += numDictionary[wordNumber] + ' ';
+    }
+    return numToTextStr += numToText(str.slice(firstSpace + 1))
+  } else {
+    wordNumber = parseInt(str.slice(0));
+    if (Number.isNaN(wordNumber)) {
+      numToTextStr += str.slice(0);
+    } else {
+      numToTextStr += numDictionary[wordNumber];
+    }
+    return numToTextStr;
+  }
 };
 
 
@@ -575,6 +603,25 @@ var numToText = function(str) {
 
 // 37. Return the number of times a tag occurs in the DOM.
 var tagCount = function(tag, node) {
+  var count = 0;
+  if (!node) {
+    if (document.tagName === tag.toUpperCase()) {
+      count += 1;
+    }
+    var childNodes = document.childNodes;
+    for (var i = 0; i < childNodes.length; i++) {
+      count += tagCount(tag, childNodes[i]);
+    }
+  } else {
+    if (node.tagName === tag.toUpperCase()) {
+      count += 1;
+    }
+    var childNodes = node.childNodes;
+    for (var i = 0; i < childNodes.length; i++) {
+      count += tagCount(tag, childNodes[i]);
+    }
+  }
+  return count;
 };
 
 // 38. Write a function for binary search.
