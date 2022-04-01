@@ -708,7 +708,9 @@ var clone = function(input) {
     var finalArray = [];
     finalArray.push(clone(input[0]));
     return finalArray.concat(clone(input.slice(1)));
-  } else if (typeof input === 'object') {
+  }
+
+  if (typeof input === 'object') {
     var finalObject = {};
     for (var key in input) {
       if (input.hasOwnProperty(key)) {
@@ -716,7 +718,7 @@ var clone = function(input) {
       }
     }
     return finalObject;
-  } else {
-    return input;
   }
+
+  return input;
 };
